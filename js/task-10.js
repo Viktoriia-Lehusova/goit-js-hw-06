@@ -8,24 +8,30 @@ const btnCreate = document.querySelector('button[data-create]');
 const btnDestroy = document.querySelector('button[data-destroy]');
 
 input.addEventListener('input', onInputValue);
+btnCreate.addEventListener('click', onBtnCreateBox);
+btnDestroy.addEventListener('click', destroyBoxes);
 
 function onInputValue(event) {
-  console.log('value', input.value);
+  numberBox = Number(event.currentTarget.value);
 }
-
-btnCreate.addEventListener('click', createBoxes);
-btnDestroy.addEventListener('click', destroyBoxes);
 
 function destroyBoxes(event) {
   divBox.innerHTML = '';
   input.value = '';
 }
 
+let boxSize = 30;
+let numberBox = 0;
+
+function onBtnCreateBox() {
+  createBoxes(numberBox);
+  numberBox = '';
+}
+
 function createBoxes(amount) {
-  amount = input.value;
   for (let i = 0; i < amount; i += 1) {
     const boxes = document.createElement('div');
-    const boxStyle = 30 + i * 10;
+    const boxStyle = boxSize + i * 10;
     boxes.style = `width: ${boxStyle}px; height: ${boxStyle}px; background-color: ${getRandomHexColor(
       boxes.style.backgroundColor
     )}`;
